@@ -37,13 +37,13 @@ export default function CropsPage() {
   const { t, language } = useTranslation();
   
   // Get translated crops data
-  const cropsData = getTranslation(language as LanguageCode, 'cropsPage.crops') as any[];
-  const crops = cropsData.map((crop, index) => ({
+  const cropsData = getTranslation(language as LanguageCode, 'cropsPage.crops') as any;
+  const crops = Array.isArray(cropsData) ? cropsData.map((crop, index) => ({
     id: index + 1,
     ...crop,
     states: statesList.slice(0, 5), // Using static state lists
     image: cropsImages[index] || ""
-  }));
+  })) : [];
   
   const [selectedState, setSelectedState] = useState("all");
   const [selectedCategory, setSelectedCategory] = useState("all");
@@ -247,7 +247,7 @@ export default function CropsPage() {
                           {t('cropsPage.suitableStates')}
                         </h4>
                         <div className="flex flex-wrap gap-2">
-                          {selectedCrop.states.map((state) =>
+                          {selectedCrop.states.map((state: string) =>
                           <Badge key={state} variant="outline" className="text-sm">
                               <MapPin className="w-3 h-3 mr-1" />
                               {state}

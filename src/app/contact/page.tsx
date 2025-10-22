@@ -8,7 +8,6 @@ import { Textarea } from "@/components/ui/textarea";
 import { Button } from "@/components/ui/button";
 import { Label } from "@/components/ui/label";
 import { MapPin, Phone, Mail, Clock, Send, MessageCircle } from "lucide-react";
-import { useToast } from "@/hooks/use-toast";
 import { Toaster } from "@/components/ui/sonner";
 import { toast } from "sonner";
 import { useTranslation } from "@/context/TranslationContext";
