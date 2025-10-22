@@ -2,19 +2,20 @@
 
 import Link from "next/link";
 import { useState } from "react";
-import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Sprout, Users, BookOpen, Phone, TrendingUp, Shield, Droplet, Sun, MessageCircle, Send } from "lucide-react";
 import { Toaster } from "@/components/ui/sonner";
+import { useTranslation } from "@/context/TranslationContext";
 
 export default function Home() {
+  const { t } = useTranslation();
   const [chatOpen, setChatOpen] = useState(false);
   const [chatMessages, setChatMessages] = useState([
-  { type: "bot", message: "🌾 Namaste! I'm your ANNADATAA farming assistant. I can help you with crop information, NGO support, and farming tips. How can I assist you today?" }]
-  );
+    { type: "bot", message: t('chatbot.greeting') }
+  ]);
   const [chatInput, setChatInput] = useState("");
 
   const handleChatSubmit = (e: React.FormEvent) => {
@@ -24,21 +25,19 @@ export default function Home() {
     const userMessage = chatInput.toLowerCase();
     setChatMessages((prev) => [...prev, { type: "user", message: chatInput }]);
 
-    // Simple response logic
-    let botResponse = "Thank you for your question! Our team can provide more detailed assistance. Please visit our Contact page or call our helpline.";
-
+    let botResponse = t('chatbot.defaultResponse');
     if (userMessage.includes("crop") || userMessage.includes("farming")) {
-      botResponse = "You can explore detailed crop information on our Crops page. We have cultivation guides for 500+ varieties with state-wise recommendations. Would you like me to direct you there?";
+      botResponse = t('chatbot.cropResponse');
     } else if (userMessage.includes("ngo") || userMessage.includes("support")) {
-      botResponse = "We have 200+ partner NGOs across India ready to help you! Visit our NGO Directory to find organizations in your area offering training, financial aid, and resources.";
+      botResponse = t('chatbot.ngoResponse');
     } else if (userMessage.includes("help") || userMessage.includes("contact")) {
-      botResponse = "You can reach us 24/7! Call our helpline at 1800-XXX-XXXX or visit our Contact page to send a message. We're here to help!";
+      botResponse = t('chatbot.contactResponse');
     } else if (userMessage.includes("hello") || userMessage.includes("hi") || userMessage.includes("namaste")) {
-      botResponse = "Namaste! 🙏 Welcome to ANNADATAA. I can help you with:\n• Crop information\n• NGO directory\n• Farming tips\n• Government schemes\nWhat would you like to know?";
+      botResponse = t('chatbot.greetingResponse');
     } else if (userMessage.includes("weather") || userMessage.includes("climate")) {
-      botResponse = "Climate adaptation is crucial! Check our blog for articles on adapting to changing weather patterns. We also provide seasonal crop recommendations based on your region.";
+      botResponse = t('chatbot.weatherResponse');
     } else if (userMessage.includes("price") || userMessage.includes("market")) {
-      botResponse = "For the latest market prices and selling opportunities, please contact our partner NGOs in your area. They can connect you with better markets and fair prices.";
+      botResponse = t('chatbot.priceResponse');
     }
 
     setTimeout(() => {
@@ -49,62 +48,61 @@ export default function Home() {
   };
 
   const features = [
-  {
-    icon: Sprout,
-    title: "Crop Information",
-    description: "Detailed cultivation guides for various crops with state-wise recommendations",
-    link: "/crops",
-    color: "bg-green-100 text-green-600"
-  },
-  {
-    icon: Users,
-    title: "NGO Directory",
-    description: "Connect with agricultural NGOs for support, training, and resources",
-    link: "/ngos",
-    color: "bg-blue-100 text-blue-600"
-  },
-  {
-    icon: BookOpen,
-    title: "Knowledge Hub",
-    description: "Latest articles, tips, and best practices for modern farming",
-    link: "/blog",
-    color: "bg-purple-100 text-purple-600"
-  },
-  {
-    icon: Phone,
-    title: "24/7 Support",
-    description: "Get instant help through our helpline and chatbot assistance",
-    link: "/contact",
-    color: "bg-orange-100 text-orange-600"
-  }];
-
+    {
+      icon: Sprout,
+      title: t('features.cropInfo.title'),
+      description: t('features.cropInfo.description'),
+      link: "/crops",
+      color: "bg-green-100 text-green-600"
+    },
+    {
+      icon: Users,
+      title: t('features.ngoDirectory.title'),
+      description: t('features.ngoDirectory.description'),
+      link: "/ngos",
+      color: "bg-blue-100 text-blue-600"
+    },
+    {
+      icon: BookOpen,
+      title: t('features.knowledgeHub.title'),
+      description: t('features.knowledgeHub.description'),
+      link: "/blog",
+      color: "bg-purple-100 text-purple-600"
+    },
+    {
+      icon: Phone,
+      title: t('features.support.title'),
+      description: t('features.support.description'),
+      link: "/contact",
+      color: "bg-orange-100 text-orange-600"
+    }
+  ];
 
   const benefits = [
-  {
-    icon: TrendingUp,
-    title: "Increase Productivity",
-    description: "Learn modern farming techniques to boost your crop yield"
-  },
-  {
-    icon: Shield,
-    title: "Risk Management",
-    description: "Access insurance and financial support for crop protection"
-  },
-  {
-    icon: Droplet,
-    title: "Water Conservation",
-    description: "Implement efficient irrigation methods to save water"
-  },
-  {
-    icon: Sun,
-    title: "Climate Adaptation",
-    description: "Adapt to changing weather patterns with smart farming"
-  }];
-
+    {
+      icon: TrendingUp,
+      title: t('benefits.productivity.title'),
+      description: t('benefits.productivity.description')
+    },
+    {
+      icon: Shield,
+      title: t('benefits.riskManagement.title'),
+      description: t('benefits.riskManagement.description')
+    },
+    {
+      icon: Droplet,
+      title: t('benefits.waterConservation.title'),
+      description: t('benefits.waterConservation.description')
+    },
+    {
+      icon: Sun,
+      title: t('benefits.climateAdaptation.title'),
+      description: t('benefits.climateAdaptation.description')
+    }
+  ];
 
   return (
     <div className="min-h-screen flex flex-col">
-      <Navigation />
 
       {/* Hero Section */}
       <div className="relative bg-gradient-to-br from-green-700 via-green-600 to-green-800 text-white overflow-hidden">
@@ -113,20 +111,21 @@ export default function Home() {
           <div className="grid lg:grid-cols-2 gap-12 items-center">
             <div>
               <div className="inline-block mb-4 px-4 py-2 bg-white/10 backdrop-blur-sm rounded-full text-sm font-medium">
-                🌾 Empowering Indian Farmers
+                🌾 {t('hero.tagline')}
               </div>
               <h1 className="text-4xl md:text-6xl font-bold mb-6 leading-tight">
-                Welcome to <span className="text-green-200">ANNADATAA</span>
+                {t('hero.title').split('ANNADATAA')[0]}
+                <span className="text-green-200">ANNADATAA</span>
+                {t('hero.title').split('ANNADATAA')[1]}
               </h1>
               <p className="text-xl md:text-2xl text-green-100 mb-8">
-                Your comprehensive platform for agricultural knowledge, resources, and support. 
-                Transforming farming through technology and community.
+                {t('hero.subtitle')}
               </p>
               <div className="flex flex-col sm:flex-row gap-4">
                 <Link href="/crops">
                   <Button size="lg" className="bg-white text-green-700 hover:bg-green-50 w-full sm:w-auto">
                     <Sprout className="w-5 h-5 mr-2" />
-                    Explore Crops
+                    {t('hero.exploreCrops')}
                   </Button>
                 </Link>
                 <Link href="/contact">
@@ -134,9 +133,8 @@ export default function Home() {
                     size="lg"
                     variant="outline"
                     className="hover:bg-white/10 w-full sm:w-auto !opacity-100 !border-white !text-[#0f7800]">
-
                     <Phone className="w-5 h-5 mr-2" />
-                    Get Support
+                    {t('hero.getSupport')}
                   </Button>
                 </Link>
               </div>
@@ -146,7 +144,6 @@ export default function Home() {
                 src="https://slelguoygbfzlpylpxfs.supabase.co/storage/v1/object/public/project-uploads/8c7aca3c-7574-4f11-af54-208b636c54a2/visual-edit-uploads/1760943492340-daq9ry4ajb4.jpg"
                 alt="Farmer in field"
                 className="rounded-lg shadow-2xl !w-full !h-full !max-w-full" />
-
             </div>
           </div>
         </div>
@@ -157,20 +154,20 @@ export default function Home() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
             <div className="text-center">
-              <div className="text-4xl font-bold text-green-600 mb-2">500+</div>
-              <div className="text-gray-600">Crop Varieties</div>
+              <div className="text-4xl font-bold text-green-600 mb-2">{t('stats_numbers.crops')}</div>
+              <div className="text-gray-600">{t('stats.cropVarieties')}</div>
             </div>
             <div className="text-center">
-              <div className="text-4xl font-bold text-green-600 mb-2">200+</div>
-              <div className="text-gray-600">NGO Partners</div>
+              <div className="text-4xl font-bold text-green-600 mb-2">{t('stats_numbers.ngos')}</div>
+              <div className="text-gray-600">{t('stats.ngoPartners')}</div>
             </div>
             <div className="text-center">
-              <div className="text-4xl font-bold text-green-600 mb-2">50K+</div>
-              <div className="text-gray-600">Farmers Helped</div>
+              <div className="text-4xl font-bold text-green-600 mb-2">{t('stats_numbers.farmers')}</div>
+              <div className="text-gray-600">{t('stats.farmerHelped')}</div>
             </div>
             <div className="text-center">
-              <div className="text-4xl font-bold text-green-600 mb-2">24/7</div>
-              <div className="text-gray-600">Support Available</div>
+              <div className="text-4xl font-bold text-green-600 mb-2">{t('stats_numbers.support')}</div>
+              <div className="text-gray-600">{t('stats.supportAvailable')}</div>
             </div>
           </div>
         </div>
@@ -181,16 +178,16 @@ export default function Home() {
         <div className="max-w-7xl mx-auto">
           <div className="text-center mb-12">
             <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
-              Everything You Need in One Place
+              {t('features.title')}
             </h2>
             <p className="text-xl text-gray-600 max-w-2xl mx-auto">
-              Access comprehensive agricultural resources and support services tailored for Indian farmers
+              {t('features.subtitle')}
             </p>
           </div>
 
           <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
             {features.map((feature, index) =>
-            <Link key={index} href={feature.link}>
+              <Link key={index} href={feature.link}>
                 <Card className="h-full hover:shadow-xl transition-shadow cursor-pointer group">
                   <CardHeader>
                     <div className={`w-14 h-14 rounded-lg ${feature.color} flex items-center justify-center mb-4 group-hover:scale-110 transition-transform`}>
@@ -215,16 +212,16 @@ export default function Home() {
         <div className="max-w-7xl mx-auto">
           <div className="text-center mb-12">
             <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
-              Why Choose ANNADATAA?
+              {t('benefits.title')}
             </h2>
             <p className="text-xl text-gray-600 max-w-2xl mx-auto">
-              Empowering farmers with knowledge, technology, and community support
+              {t('benefits.subtitle')}
             </p>
           </div>
 
           <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
             {benefits.map((benefit, index) =>
-            <div key={index} className="text-center">
+              <div key={index} className="text-center">
                 <div className="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-4">
                   <benefit.icon className="w-8 h-8 text-green-600" />
                 </div>
@@ -240,15 +237,15 @@ export default function Home() {
       <div className="bg-gradient-to-r from-green-600 to-green-700 py-16 px-4">
         <div className="max-w-4xl mx-auto text-center text-white">
           <h2 className="text-3xl md:text-4xl font-bold mb-4">
-            Ready to Transform Your Farming?
+            {t('cta.title')}
           </h2>
           <p className="text-xl text-green-100 mb-8">
-            Join thousands of farmers who are already benefiting from our platform
+            {t('cta.subtitle')}
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Link href="/crops">
               <Button size="lg" className="bg-white text-green-700 hover:bg-green-50 w-full sm:w-auto">
-                Get Started
+                {t('cta.getStarted')}
               </Button>
             </Link>
             <Link href="/ngos">
@@ -256,8 +253,7 @@ export default function Home() {
                 size="lg"
                 variant="outline"
                 className="hover:bg-white/10 w-full sm:w-auto !text-[#0f8400] !border-white">
-
-                Find NGO Support
+                {t('cta.findNGO')}
               </Button>
             </Link>
           </div>
@@ -269,39 +265,38 @@ export default function Home() {
         <div className="max-w-7xl mx-auto">
           <div className="flex items-center justify-between mb-8">
             <h2 className="text-3xl md:text-4xl font-bold text-gray-900">
-              Latest Articles
+              {t('blog.title')}
             </h2>
             <Link href="/blog">
               <Button variant="outline" className="hidden md:flex">
-                View All Articles
+                {t('blog.viewAll')}
               </Button>
             </Link>
           </div>
 
           <div className="grid md:grid-cols-3 gap-6">
             {[
-            {
-              title: "10 Essential Tips for Successful Organic Farming",
-              image: "https://images.unsplash.com/photo-1574943320219-553eb213f72d?w=800&q=80",
-              category: "Organic Farming"
-            },
-            {
-              title: "Modern Irrigation Techniques for Water Conservation",
-              image: "https://images.unsplash.com/photo-1625246333195-78d9c38ad449?w=800&q=80",
-              category: "Water Management"
-            },
-            {
-              title: "Soil Health Management: A Complete Guide",
-              image: "https://images.unsplash.com/photo-1592982537447-7440770cbfc9?w=800&q=80",
-              category: "Soil Management"
-            }].
-            map((article, index) =>
-            <Card key={index} className="overflow-hidden hover:shadow-lg transition-shadow cursor-pointer">
+              {
+                title: t('blog.articles.0.title'),
+                image: "https://images.unsplash.com/photo-1574943320219-553eb213f72d?w=800&q=80",
+                category: t('blog.articles.0.category')
+              },
+              {
+                title: t('blog.articles.1.title'),
+                image: "https://images.unsplash.com/photo-1625246333195-78d9c38ad449?w=800&q=80",
+                category: t('blog.articles.1.category')
+              },
+              {
+                title: t('blog.articles.2.title'),
+                image: "https://images.unsplash.com/photo-1592982537447-7440770cbfc9?w=800&q=80",
+                category: t('blog.articles.2.category')
+              }
+            ].map((article, index) =>
+              <Card key={index} className="overflow-hidden hover:shadow-lg transition-shadow cursor-pointer">
                 <img
-                src={article.image}
-                alt={article.title}
-                className="w-full h-48 object-cover" />
-
+                  src={article.image}
+                  alt={article.title}
+                  className="w-full h-48 object-cover" />
                 <CardHeader>
                   <div className="text-sm text-green-600 font-medium mb-2">{article.category}</div>
                   <CardTitle className="text-lg line-clamp-2">{article.title}</CardTitle>
@@ -312,7 +307,7 @@ export default function Home() {
 
           <div className="text-center mt-8 md:hidden">
             <Link href="/blog">
-              <Button variant="outline">View All Articles</Button>
+              <Button variant="outline">{t('blog.viewAll')}</Button>
             </Link>
           </div>
         </div>
@@ -320,47 +315,44 @@ export default function Home() {
 
       {/* Chatbot */}
       {chatOpen &&
-      <div className="fixed bottom-24 right-4 w-80 bg-white rounded-lg shadow-2xl border border-gray-200 z-50">
+        <div className="fixed bottom-24 right-4 w-80 bg-white rounded-lg shadow-2xl border border-gray-200 z-50">
           <div className="bg-green-600 text-white p-4 rounded-t-lg flex items-center justify-between">
             <div className="flex items-center space-x-2">
               <MessageCircle className="w-5 h-5" />
-              <h3 className="font-semibold">Farming Assistant</h3>
+              <h3 className="font-semibold">{t('chatbot.title')}</h3>
             </div>
             <Button
-            size="sm"
-            variant="ghost"
-            className="text-white hover:bg-green-700 h-6 w-6 p-0"
-            onClick={() => setChatOpen(false)}>
-
+              size="sm"
+              variant="ghost"
+              className="text-white hover:bg-green-700 h-6 w-6 p-0"
+              onClick={() => setChatOpen(false)}>
               ✕
             </Button>
           </div>
           <div className="h-80 overflow-y-auto p-4 space-y-3 bg-gray-50">
             {chatMessages.map((msg, idx) =>
-          <div
-            key={idx}
-            className={`flex ${msg.type === "user" ? "justify-end" : "justify-start"}`}>
-
+              <div
+                key={idx}
+                className={`flex ${msg.type === "user" ? "justify-end" : "justify-start"}`}>
                 <div
-              className={`max-w-[85%] p-3 rounded-lg ${
-              msg.type === "user" ?
-              "bg-green-600 text-white rounded-br-none" :
-              "bg-white text-gray-900 border border-gray-200 rounded-bl-none"}`
-              }>
-
+                  className={`max-w-[85%] p-3 rounded-lg ${
+                    msg.type === "user" ?
+                      "bg-green-600 text-white rounded-br-none" :
+                      "bg-white text-gray-900 border border-gray-200 rounded-bl-none"
+                  }`
+                }>
                   <p className="text-sm whitespace-pre-line">{msg.message}</p>
                 </div>
               </div>
-          )}
+            )}
           </div>
           <form onSubmit={handleChatSubmit} className="p-4 border-t bg-white rounded-b-lg">
             <div className="flex space-x-2">
               <Input
-              value={chatInput}
-              onChange={(e) => setChatInput(e.target.value)}
-              placeholder="Ask me anything..."
-              className="flex-1" />
-
+                value={chatInput}
+                onChange={(e) => setChatInput(e.target.value)}
+                placeholder={t('chatbot.placeholder')}
+                className="flex-1" />
               <Button type="submit" size="sm" className="bg-green-600 hover:bg-green-700">
                 <Send className="w-4 h-4" />
               </Button>
@@ -374,16 +366,14 @@ export default function Home() {
         onClick={() => setChatOpen(!chatOpen)}
         className="fixed bottom-6 right-6 w-14 h-14 rounded-full bg-green-600 hover:bg-green-700 shadow-lg z-40 flex items-center justify-center text-white transition-all hover:scale-110"
         aria-label="Open chat">
-
         {chatOpen ?
-        <span className="text-2xl">✕</span> :
-
-        <MessageCircle className="w-6 h-6" />
+          <span className="text-2xl">✕</span> :
+          <MessageCircle className="w-6 h-6" />
         }
       </button>
 
       <Toaster />
       <Footer />
-    </div>);
-
+    </div>
+  );
 }

@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { Menu, X, Globe } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import {
@@ -12,42 +12,26 @@ import {
   SelectValue } from
 "@/components/ui/select";
 import { toast } from "sonner";
+import { SUPPORTED_LANGUAGES, type LanguageCode } from "@/lib/translations";
+import { useTranslation } from "@/context/TranslationContext";
 
 export default function Navigation() {
   const [isOpen, setIsOpen] = useState(false);
-  const [language, setLanguage] = useState("en");
+  const { language, setLanguage, t } = useTranslation();
 
-  // Load saved language preference on mount
-  useEffect(() => {
-    const savedLanguage = localStorage.getItem("annadataa_language");
-    if (savedLanguage) {
-      setLanguage(savedLanguage);
-    }
-  }, []);
-
-  // Handle language change
   const handleLanguageChange = (value: string) => {
-    setLanguage(value);
-    localStorage.setItem("annadataa_language", value);
-
-    const languageNames: {[key: string]: string;} = {
-      en: "English",
-      hi: "हिंदी (Hindi)",
-      te: "తెలుగు (Telugu)",
-      ta: "தமிழ் (Tamil)",
-      bn: "বাংলা (Bengali)"
-    };
-
-    toast.success(`Language changed to ${languageNames[value]}`);
+    const lang = value as LanguageCode;
+    setLanguage(lang);
+    toast.success(`Language changed to ${SUPPORTED_LANGUAGES[lang]}`);
   };
 
   const navLinks = [
-  { href: "/", label: "Home" },
-  { href: "/crops", label: "Crop Information" },
-  { href: "/ngos", label: "NGO Directory" },
-  { href: "/blog", label: "Blog" },
-  { href: "/contact", label: "Contact Us" }];
-
+    { href: "/", label: t('nav.home') },
+    { href: "/crops", label: t('nav.crops') },
+    { href: "/ngos", label: t('nav.ngos') },
+    // { href: "/blog", label: t('nav.blog') },
+    { href: "/contact", label: t('nav.contact') }
+  ];
 
   return (
     <nav className="bg-green-700 text-white shadow-lg sticky top-0 z-50">
@@ -77,11 +61,9 @@ export default function Navigation() {
                   <SelectValue />
                 </SelectTrigger>
                 <SelectContent>
-                  <SelectItem value="en">English</SelectItem>
-                  <SelectItem value="hi">हिंदी</SelectItem>
-                  <SelectItem value="te">తెలుగు</SelectItem>
-                  <SelectItem value="ta">தமிழ்</SelectItem>
-                  <SelectItem value="bn">বাংলা</SelectItem>
+                  {Object.entries(SUPPORTED_LANGUAGES).map(([code, name]) => (
+                    <SelectItem key={code} value={code}>{name}</SelectItem>
+                  ))}
                 </SelectContent>
               </Select>
             </div>
@@ -121,11 +103,9 @@ export default function Navigation() {
                     <SelectValue />
                   </SelectTrigger>
                   <SelectContent>
-                    <SelectItem value="en">English</SelectItem>
-                    <SelectItem value="hi">हिंदी</SelectItem>
-                    <SelectItem value="te">తెలుగు</SelectItem>
-                    <SelectItem value="ta">தமிழ்</SelectItem>
-                    <SelectItem value="bn">বাংলা</SelectItem>
+                    {Object.entries(SUPPORTED_LANGUAGES).map(([code, name]) => (
+                      <SelectItem key={code} value={code}>{name}</SelectItem>
+                    ))}
                   </SelectContent>
                 </Select>
               </div>

@@ -1,7 +1,6 @@
 "use client";
 
 import { useState } from "react";
-import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
@@ -9,119 +8,66 @@ import { Input } from "@/components/ui/input";
 import { Badge } from "@/components/ui/badge";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Search, MapPin, Calendar, Droplet, Sun, Sprout } from "lucide-react";
+import { useTranslation } from "@/context/TranslationContext";
+import { getTranslation, type LanguageCode } from "@/lib/translations";
 
-const crops = [
-{
-  id: 1,
-  name: "Rice (Paddy)",
-  category: "Cereal",
-  states: ["Punjab", "Haryana", "West Bengal", "Uttar Pradesh", "Andhra Pradesh"],
-  season: "Kharif",
-  duration: "120-150 days",
-  water: "High",
-  temperature: "20-35°C",
-  soil: "Clay loam, Silty clay",
-  image: "https://3000-9938b188-6593-439c-b78c-3162017a5a8b.orchids.page/crops",
-  description: "Rice is the staple food crop of India. It requires high water and temperature for cultivation.",
-  cultivation: "Prepare land by plowing. Transplant seedlings at 20-25 days. Maintain water level at 5-7 cm."
-},
-{
-  id: 2,
-  name: "Wheat",
-  category: "Cereal",
-  states: ["Punjab", "Haryana", "Uttar Pradesh", "Madhya Pradesh", "Rajasthan"],
-  season: "Rabi",
-  duration: "120-140 days",
-  water: "Medium",
-  temperature: "10-25°C",
-  soil: "Clay loam, Sandy loam",
-  image: "https://images.unsplash.com/photo-1574323347407-f5e1ad6d020b?w=400&q=80",
-  description: "Wheat is the second most important cereal crop in India after rice.",
-  cultivation: "Sow seeds in rows. Apply fertilizers at sowing and tillering stages. Irrigate 4-6 times."
-},
-{
-  id: 3,
-  name: "Cotton",
-  category: "Fiber",
-  states: ["Gujarat", "Maharashtra", "Telangana", "Punjab", "Haryana"],
-  season: "Kharif",
-  duration: "150-180 days",
-  water: "Medium",
-  temperature: "21-30°C",
-  soil: "Black cotton soil, Alluvial",
-  image: "",
-  description: "Cotton is the most important fiber crop and cash crop in India.",
-  cultivation: "Deep plowing required. Sow seeds at 45-60 cm spacing. Apply fertilizers in splits."
-},
-{
-  id: 4,
-  name: "Sugarcane",
-  category: "Cash Crop",
-  states: ["Uttar Pradesh", "Maharashtra", "Karnataka", "Tamil Nadu", "Gujarat"],
-  season: "Year-round",
-  duration: "10-12 months",
-  water: "High",
-  temperature: "20-35°C",
-  soil: "Deep loamy soil",
-  image: "https://images.unsplash.com/photo-1591108781995-c5481c0c32cc?w=400&q=80",
-  description: "Sugarcane is a major cash crop used for sugar production.",
-  cultivation: "Plant setts in furrows. Maintain adequate moisture. Apply fertilizers regularly."
-},
-{
-  id: 5,
-  name: "Maize",
-  category: "Cereal",
-  states: ["Karnataka", "Madhya Pradesh", "Bihar", "Maharashtra", "Rajasthan"],
-  season: "Kharif & Rabi",
-  duration: "90-110 days",
-  water: "Medium",
-  temperature: "21-27°C",
-  soil: "Well-drained loamy soil",
-  image: "https://images.unsplash.com/photo-1603022878525-443afbc21ac3?w=400&q=80",
-  description: "Maize is an important cereal crop used for food, feed, and industrial purposes.",
-  cultivation: "Sow seeds at proper spacing. Apply balanced fertilizers. Control weeds timely."
-},
-{
-  id: 6,
-  name: "Pulses (Gram)",
-  category: "Pulses",
-  states: ["Madhya Pradesh", "Maharashtra", "Rajasthan", "Karnataka", "Andhra Pradesh"],
-  season: "Rabi",
-  duration: "95-120 days",
-  water: "Low",
-  temperature: "10-25°C",
-  soil: "Well-drained loam",
-  image: "https://images.unsplash.com/photo-1589880266225-3e8f9bc3e9d5?w=400&q=80",
-  description: "Gram (chickpea) is an important pulse crop rich in protein.",
-  cultivation: "Sow seeds with seed treatment. Requires minimal irrigation. Apply phosphorus fertilizers."
-}];
+// Import local crop images
+import riceImg from "@/images/rice.jpg";
+import wheatImg from "@/images/wheat.jpg";
+import cottonImg from "@/images/cotton.webp";
+import sugarcaneImg from "@/images/sugarcane.jpg";
+import cornImg from "@/images/corn.jpg";
+import pulsesImg from "@/images/pulses.jpg";
+
+// State lists remain static as they're proper nouns
+const statesList = ["Punjab", "Haryana", "West Bengal", "Uttar Pradesh", "Andhra Pradesh", "Maharashtra", "Telangana", "Gujarat", "Karnataka", "Tamil Nadu", "Madhya Pradesh", "Rajasthan", "Bihar"];
+
+// Using local images from src/images folder
+const cropsImages = [
+  riceImg.src,        // Rice paddy
+  wheatImg.src,       // Wheat field
+  cottonImg.src,      // Cotton plant
+  sugarcaneImg.src,   // Sugarcane
+  cornImg.src,        // Maize/corn
+  pulsesImg.src       // Pulses/legumes
+];
 
 
 export default function CropsPage() {
+  const { t, language } = useTranslation();
+  
+  // Get translated crops data
+  const cropsData = getTranslation(language as LanguageCode, 'cropsPage.crops') as any[];
+  const crops = cropsData.map((crop, index) => ({
+    id: index + 1,
+    ...crop,
+    states: statesList.slice(0, 5), // Using static state lists
+    image: cropsImages[index] || ""
+  }));
+  
   const [selectedState, setSelectedState] = useState("all");
   const [selectedCategory, setSelectedCategory] = useState("all");
   const [searchTerm, setSearchTerm] = useState("");
   const [selectedCrop, setSelectedCrop] = useState(crops[0]);
 
-  const states = ["All States", "Punjab", "Haryana", "Uttar Pradesh", "Maharashtra", "Gujarat", "Karnataka", "Tamil Nadu", "West Bengal", "Madhya Pradesh", "Rajasthan", "Andhra Pradesh", "Telangana", "Bihar"];
-  const categories = ["All Categories", "Cereal", "Pulses", "Fiber", "Cash Crop"];
+  const states = [t('cropsPage.allStates'), ...statesList];
+  const categories = [t('cropsPage.allCategories'), t('cropsPage.categories.cereal'), t('cropsPage.categories.pulses'), t('cropsPage.categories.fiber'), t('cropsPage.categories.cashCrop')];
 
   const filteredCrops = crops.filter((crop) => {
-    const matchesState = selectedState === "all" || crop.states.some((s) => s.toLowerCase().includes(selectedState.toLowerCase()));
-    const matchesCategory = selectedCategory === "all" || crop.category === selectedCategory;
+    const matchesState = selectedState === "all" || selectedState === t('cropsPage.allStates');
+    const matchesCategory = selectedCategory === "all" || selectedCategory === t('cropsPage.allCategories') || crop.category.toLowerCase().includes(selectedCategory.toLowerCase());
     const matchesSearch = crop.name.toLowerCase().includes(searchTerm.toLowerCase());
     return matchesState && matchesCategory && matchesSearch;
   });
 
   return (
     <div className="min-h-screen flex flex-col">
-      <Navigation />
 
       <div className="bg-green-700 text-white py-12 px-4">
         <div className="max-w-7xl mx-auto">
-          <h1 className="text-4xl md:text-5xl font-bold mb-4">Crop Information</h1>
+          <h1 className="text-4xl md:text-5xl font-bold mb-4">{t('cropsPage.title')}</h1>
           <p className="text-xl text-green-100">
-            Comprehensive cultivation guides for various crops across different states of India
+            {t('cropsPage.subtitle')}
           </p>
         </div>
       </div>
@@ -134,10 +80,10 @@ export default function CropsPage() {
               <div>
                 <label className="block text-sm font-medium text-gray-700 mb-2">
                   <Search className="inline w-4 h-4 mr-1" />
-                  Search Crops
+                  {t('cropsPage.searchPlaceholder')}
                 </label>
                 <Input
-                  placeholder="Search by crop name..."
+                  placeholder={t('cropsPage.searchPlaceholder')}
                   value={searchTerm}
                   onChange={(e) => setSearchTerm(e.target.value)} />
 
@@ -145,7 +91,7 @@ export default function CropsPage() {
               <div>
                 <label className="block text-sm font-medium text-gray-700 mb-2">
                   <MapPin className="inline w-4 h-4 mr-1" />
-                  Select State
+                  {t('cropsPage.filterByState')}
                 </label>
                 <Select value={selectedState} onValueChange={setSelectedState}>
                   <SelectTrigger>
@@ -199,7 +145,7 @@ export default function CropsPage() {
                     <CardHeader className="p-4">
                       <div className="flex items-start space-x-3">
                         <img
-                        src={crop.image}
+                        src={crop.image || wheatImg.src}
                         alt={crop.name}
                         className="w-16 h-16 object-cover rounded" />
 
@@ -246,9 +192,9 @@ export default function CropsPage() {
                 <CardContent>
                   <Tabs defaultValue="overview" className="w-full">
                     <TabsList className="grid w-full grid-cols-3">
-                      <TabsTrigger value="overview">Overview</TabsTrigger>
-                      <TabsTrigger value="cultivation">Cultivation</TabsTrigger>
-                      <TabsTrigger value="states">Suitable States</TabsTrigger>
+                      <TabsTrigger value="overview">{t('cropsPage.viewDetails')}</TabsTrigger>
+                      <TabsTrigger value="cultivation">{t('cropsPage.cultivationGuide')}</TabsTrigger>
+                      <TabsTrigger value="states">{t('cropsPage.suitableStates')}</TabsTrigger>
                     </TabsList>
 
                     <TabsContent value="overview" className="space-y-4">
@@ -286,19 +232,19 @@ export default function CropsPage() {
 
                     <TabsContent value="cultivation" className="space-y-4">
                       <div className="p-4 bg-gray-50 rounded-lg">
-                        <h4 className="font-semibold text-gray-900 mb-2">Cultivation Practices</h4>
+                        <h4 className="font-semibold text-gray-900 mb-2">{t('cropsPage.cultivationGuide')}</h4>
                         <p className="text-gray-700 leading-relaxed">{selectedCrop.cultivation}</p>
                       </div>
                       <div className="p-4 bg-green-50 rounded-lg">
-                        <h4 className="font-semibold text-green-900 mb-2">Best Season</h4>
-                        <p className="text-green-700">{selectedCrop.season} season is most suitable for cultivation</p>
+                        <h4 className="font-semibold text-green-900 mb-2">{t('cropsPage.season')}</h4>
+                        <p className="text-green-700">{selectedCrop.season}</p>
                       </div>
                     </TabsContent>
 
                     <TabsContent value="states" className="space-y-4">
                       <div className="p-4 bg-gray-50 rounded-lg">
                         <h4 className="font-semibold text-gray-900 mb-3">
-                          Suitable States for Cultivation
+                          {t('cropsPage.suitableStates')}
                         </h4>
                         <div className="flex flex-wrap gap-2">
                           {selectedCrop.states.map((state) =>

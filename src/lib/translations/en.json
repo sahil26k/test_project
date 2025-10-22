@@ -1,0 +1,302 @@
+{
+  "nav": {
+    "home": "Home",
+    "crops": "Crop Information",
+    "ngos": "NGO Directory",
+    "blog": "Blog",
+    "contact": "Contact Us",
+    "selectLanguage": "Select Language"
+  },
+  "hero": {
+    "tagline": "Empowering Indian Farmers",
+    "title": "Welcome to ANNADATAA",
+    "subtitle": "Your comprehensive platform for agricultural knowledge, resources, and support. Transforming farming through technology and community.",
+    "exploreCrops": "Explore Crops",
+    "getSupport": "Get Support"
+  },
+  "stats": {
+    "cropVarieties": "Crop Varieties",
+    "ngoPartners": "NGO Partners",
+    "farmerHelped": "Farmers Helped",
+    "supportAvailable": "Support Available"
+  },
+  "features": {
+    "title": "Everything You Need in One Place",
+    "subtitle": "Access comprehensive agricultural resources and support services tailored for Indian farmers",
+    "cropInfo": {
+      "title": "Crop Information",
+      "description": "Detailed cultivation guides for various crops with state-wise recommendations"
+    },
+    "ngoDirectory": {
+      "title": "NGO Directory",
+      "description": "Connect with agricultural NGOs for support, training, and resources"
+    },
+    "knowledgeHub": {
+      "title": "Knowledge Hub",
+      "description": "Latest articles, tips, and best practices for modern farming"
+    },
+    "support": {
+      "title": "24/7 Support",
+      "description": "Get instant help through our helpline and chatbot assistance"
+    }
+  },
+  "benefits": {
+    "title": "Why Choose ANNADATAA?",
+    "subtitle": "Empowering farmers with knowledge, technology, and community support",
+    "productivity": {
+      "title": "Increase Productivity",
+      "description": "Learn modern farming techniques to boost your crop yield"
+    },
+    "riskManagement": {
+      "title": "Risk Management",
+      "description": "Access insurance and financial support for crop protection"
+    },
+    "waterConservation": {
+      "title": "Water Conservation",
+      "description": "Implement efficient irrigation methods to save water"
+    },
+    "climateAdaptation": {
+      "title": "Climate Adaptation",
+      "description": "Adapt to changing weather patterns with smart farming"
+    }
+  },
+  "cta": {
+    "title": "Ready to Transform Your Farming?",
+    "subtitle": "Join thousands of farmers who are already benefiting from our platform",
+    "getStarted": "Get Started",
+    "findNGO": "Find NGO Support"
+  },
+  "blog": {
+    "title": "Latest Articles",
+    "viewAll": "View All Articles",
+    "articles": [
+      {
+        "title": "10 Essential Tips for Successful Organic Farming",
+        "category": "Organic Farming"
+      },
+      {
+        "title": "Modern Irrigation Techniques for Water Conservation",
+        "category": "Water Management"
+      },
+      {
+        "title": "Soil Health Management: A Complete Guide",
+        "category": "Soil Management"
+      }
+    ]
+  },
+  "chatbot": {
+    "title": "Farming Assistant",
+    "close": "Close",
+    "placeholder": "Ask me anything...",
+    "send": "Send",
+    "greeting": "🌾 Namaste! I'm your ANNADATAA farming assistant. I can help you with crop information, NGO support, and farming tips. How can I assist you today?",
+    "cropResponse": "You can explore detailed crop information on our Crops page. We have cultivation guides for 500+ varieties with state-wise recommendations.",
+    "ngoResponse": "We have 200+ partner NGOs across India ready to help you! Visit our NGO Directory to find organizations in your area.",
+    "contactResponse": "You can reach us 24/7! Call our helpline or visit our Contact page to send a message.",
+    "greetingResponse": "Namaste! Welcome to ANNADATAA. I can help you with crop information, NGO directory, farming tips, and government schemes.",
+    "weatherResponse": "Climate adaptation is crucial! Check our blog for articles on adapting to changing weather patterns.",
+    "priceResponse": "For market prices and selling opportunities, please contact our partner NGOs in your area.",
+    "defaultResponse": "Thank you for your question! Our team can provide more detailed assistance."
+  },
+  "stats_numbers": {
+    "crops": "500+",
+    "ngos": "200+",
+    "farmers": "50K+",
+    "support": "24/7"
+  },
+  "cropsPage": {
+    "title": "Crop Information",
+    "subtitle": "Comprehensive cultivation guides for various crops across India with state-wise recommendations",
+    "filterByState": "Filter by State",
+    "allStates": "All States",
+    "filterByCategory": "Filter by Category",
+    "allCategories": "All Categories",
+    "searchPlaceholder": "Search crops...",
+    "season": "Season",
+    "duration": "Duration",
+    "waterRequirement": "Water",
+    "temperature": "Temperature",
+    "soilType": "Soil Type",
+    "suitableStates": "Suitable States",
+    "viewDetails": "View Details",
+    "cultivationGuide": "Cultivation Guide",
+    "categories": {
+      "cereal": "Cereal",
+      "fiber": "Fiber",
+      "cashCrop": "Cash Crop",
+      "pulses": "Pulses"
+    },
+    "crops": [
+      {
+        "name": "Rice (Paddy)",
+        "category": "Cereal",
+        "season": "Kharif",
+        "duration": "120-150 days",
+        "water": "High",
+        "temperature": "20-35°C",
+        "soil": "Clay loam, Silty clay",
+        "description": "Rice is the staple food crop of India. It requires high water and temperature for cultivation.",
+        "cultivation": "Prepare land by plowing. Transplant seedlings at 20-25 days. Maintain water level at 5-7 cm."
+      },
+      {
+        "name": "Wheat",
+        "category": "Cereal",
+        "season": "Rabi",
+        "duration": "120-140 days",
+        "water": "Medium",
+        "temperature": "10-25°C",
+        "soil": "Clay loam, Sandy loam",
+        "description": "Wheat is the second most important cereal crop in India after rice.",
+        "cultivation": "Sow seeds in rows. Apply fertilizers at sowing and tillering stages. Irrigate 4-6 times."
+      },
+      {
+        "name": "Cotton",
+        "category": "Fiber",
+        "season": "Kharif",
+        "duration": "150-180 days",
+        "water": "Medium",
+        "temperature": "21-30°C",
+        "soil": "Black cotton soil, Alluvial",
+        "description": "Cotton is the most important fiber crop and cash crop in India.",
+        "cultivation": "Deep plowing required. Sow seeds at 45-60 cm spacing. Apply fertilizers in splits."
+      },
+      {
+        "name": "Sugarcane",
+        "category": "Cash Crop",
+        "season": "Year-round",
+        "duration": "10-12 months",
+        "water": "High",
+        "temperature": "20-35°C",
+        "soil": "Deep loamy soil",
+        "description": "Sugarcane is a major cash crop used for sugar production.",
+        "cultivation": "Plant setts in furrows. Maintain adequate moisture. Apply fertilizers regularly."
+      },
+      {
+        "name": "Maize",
+        "category": "Cereal",
+        "season": "Kharif & Rabi",
+        "duration": "90-110 days",
+        "water": "Medium",
+        "temperature": "21-27°C",
+        "soil": "Well-drained loamy soil",
+        "description": "Maize is an important cereal crop used for food, feed, and industrial purposes.",
+        "cultivation": "Sow seeds at proper spacing. Apply balanced fertilizers. Control weeds timely."
+      },
+      {
+        "name": "Pulses (Gram)",
+        "category": "Pulses",
+        "season": "Rabi",
+        "duration": "95-120 days",
+        "water": "Low",
+        "temperature": "10-25°C",
+        "soil": "Well-drained loam",
+        "description": "Gram (chickpea) is an important pulse crop rich in protein.",
+        "cultivation": "Sow seeds with seed treatment. Requires minimal irrigation. Apply phosphorus fertilizers."
+      }
+    ]
+  },
+  "ngosPage": {
+    "title": "NGO Directory",
+    "subtitle": "Connect with agricultural NGOs providing support, training, and resources across India",
+    "searchPlaceholder": "Search NGOs by name...",
+    "filterByState": "Filter by State",
+    "filterByCategory": "Filter by Category",
+    "allStates": "All States",
+    "allCategories": "All Categories",
+    "established": "Established",
+    "services": "Services Offered",
+    "contact": "Contact",
+    "phone": "Phone",
+    "email": "Email",
+    "website": "Website",
+    "contactNGO": "Contact NGO",
+    "categories": {
+      "training": "Training & Support",
+      "organic": "Organic Farming",
+      "community": "Community Development",
+      "financial": "Financial Assistance",
+      "technology": "Technology & Innovation",
+      "water": "Water Management",
+      "women": "Women Empowerment"
+    },
+    "ngos": [
+      {
+        "name": "PRADAN",
+        "description": "Professional Assistance for Development Action - Works with rural poor for sustainable livelihoods through agriculture and natural resource management.",
+        "services": ["Training Programs", "Financial Aid", "Livelihood Support"]
+      },
+      {
+        "name": "BAIF Development Research Foundation",
+        "description": "Promotes sustainable tribal and rural development through tree-based farming systems and organic agriculture.",
+        "services": ["Organic Farming", "Tree Plantation", "Watershed Development"]
+      },
+      {
+        "name": "MYRADA",
+        "description": "Mysore Resettlement and Development Agency works on sustainable livelihoods and participatory development in rural areas.",
+        "services": ["SHG Formation", "Microfinance", "Agricultural Training"]
+      },
+      {
+        "name": "SEWA (Self Employed Women's Association)",
+        "description": "Trade union promoting women's livelihoods including agricultural workers through collective bargaining and capacity building.",
+        "services": ["Women Training", "Cooperative Formation", "Market Access"]
+      },
+      {
+        "name": "Digital Green",
+        "description": "Uses digital technology to improve agriculture extension services and connect farmers with information.",
+        "services": ["Digital Training", "Video Dissemination", "Farmer Networks"]
+      },
+      {
+        "name": "Aga Khan Rural Support Programme",
+        "description": "Works on natural resource management, water conservation and sustainable agriculture in rural areas.",
+        "services": ["Water Harvesting", "Irrigation Systems", "Soil Conservation"]
+      }
+    ]
+  },
+  "blogPage": {
+    "title": "Agricultural Blog",
+    "subtitle": "Stay updated with the latest farming tips, techniques, and agricultural news",
+    "searchPlaceholder": "Search articles...",
+    "filterByCategory": "Filter by Category",
+    "allCategories": "All Categories",
+    "featuredArticle": "Featured Article",
+    "readMore": "Read More",
+    "categories": {
+      "organic": "Organic Farming",
+      "water": "Water Management",
+      "soil": "Soil Management",
+      "technology": "Farm Technology",
+      "markets": "Markets & Prices",
+      "government": "Government Schemes",
+      "pest": "Pest Control",
+      "climate": "Climate Change",
+      "management": "Farm Management"
+    }
+  },
+  "contactPage": {
+    "title": "Contact Us",
+    "subtitle": "Get in touch with our team for any assistance or queries",
+    "formTitle": "Send us a Message",
+    "formSubtitle": "Fill out the form below and we'll get back to you as soon as possible",
+    "fullName": "Full Name",
+    "email": "Email Address",
+    "phone": "Phone Number",
+    "subject": "Subject",
+    "message": "Your Message",
+    "sendMessage": "Send Message",
+    "contactInfo": "Contact Information",
+    "address": "Address",
+    "addressText": "123 Agriculture Road, Farm District, New Delhi - 110001, India",
+    "phoneText": "+91 1800-XXX-XXXX",
+    "emailText": "support@annadataa.org",
+    "hours": "Working Hours",
+    "hoursText": "Monday - Saturday: 9:00 AM - 6:00 PM",
+    "helpline": "24/7 Farmer Helpline",
+    "helplineText": "Call anytime for emergency farming assistance",
+    "quickSupport": "Quick Support",
+    "quickSupportDesc": "Need immediate assistance? Use our helpline",
+    "callHelpline": "Call Helpline",
+    "ourLocation": "Our Location",
+    "mapView": "Map View",
+    "successMessage": "Message sent successfully! We'll get back to you soon."
+  }
+}

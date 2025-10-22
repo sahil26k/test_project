@@ -19,7 +19,16 @@ export default function ErrorReporter({ error, reset }: ReporterProps) {
 
     const send = (payload: unknown) => window.parent.postMessage(payload, "*");
 
-    const onError = (e: ErrorEvent) =>
+    const onError = (e: ErrorEvent) => {
+      // Ignore Google Translate errors
+      if (
+        e.message?.includes("removeChild") ||
+        e.message?.includes("goog-te") ||
+        e.error?.stack?.includes("translate.google.com")
+      ) {
+        return;
+      }
+      
       send({
         type: "ERROR_CAPTURED",
         error: {
@@ -32,17 +41,29 @@ export default function ErrorReporter({ error, reset }: ReporterProps) {
         },
         timestamp: Date.now(),
       });
+    };
 
-    const onReject = (e: PromiseRejectionEvent) =>
+    const onReject = (e: PromiseRejectionEvent) => {
+      // Ignore Google Translate errors
+      const message = e.reason?.message ?? String(e.reason);
+      if (
+        message?.includes("removeChild") ||
+        message?.includes("goog-te") ||
+        e.reason?.stack?.includes("translate.google.com")
+      ) {
+        return;
+      }
+      
       send({
         type: "ERROR_CAPTURED",
         error: {
-          message: e.reason?.message ?? String(e.reason),
+          message,
           stack: e.reason?.stack,
           source: "unhandledrejection",
         },
         timestamp: Date.now(),
       });
+    };
 
     const pollOverlay = () => {
       const overlay = document.querySelector("[data-nextjs-dialog-overlay]");
@@ -104,7 +125,7 @@ export default function ErrorReporter({ error, reset }: ReporterProps) {
               Something went wrong!
             </h1>
             <p className="text-muted-foreground">
-              An unexpected error occurred. Please try again fixing with Orchids
+              An unexpected error occurred.
             </p>
           </div>
           <div className="space-y-2">

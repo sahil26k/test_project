@@ -1,13 +1,13 @@
 "use client";
 
 import { useState } from "react";
-import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Search, Calendar, User, ArrowRight, TrendingUp } from "lucide-react";
+import { useTranslation } from "@/context/TranslationContext";
 
 const blogPosts = [
   {
@@ -93,17 +93,34 @@ const blogPosts = [
 ];
 
 export default function BlogPage() {
+  const { t } = useTranslation();
   const [searchTerm, setSearchTerm] = useState("");
   const [selectedCategory, setSelectedCategory] = useState("all");
 
-  const categories = ["All Categories", ...Array.from(new Set(blogPosts.map(post => post.category)))];
+  // Category translation mapping
+  const translateCategory = (category: string): string => {
+    const categoryMap: Record<string, string> = {
+      "Organic Farming": t('blogPage.categories.organic'),
+      "Water Management": t('blogPage.categories.water'),
+      "Soil Management": t('blogPage.categories.soil'),
+      "Technology": t('blogPage.categories.technology'),
+      "Pest Control": t('blogPage.categories.pest'),
+      "Climate Change": t('blogPage.categories.climate'),
+      "Farm Management": t('blogPage.categories.management'),
+      "Government Schemes": t('blogPage.categories.government'),
+    };
+    return categoryMap[category] || category;
+  };
+
+  const uniqueCategories = Array.from(new Set(blogPosts.map(post => post.category)));
+  const categories = [t('blogPage.allCategories'), ...uniqueCategories];
 
   const filteredPosts = blogPosts.filter((post) => {
     const matchesSearch = 
       post.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
       post.excerpt.toLowerCase().includes(searchTerm.toLowerCase()) ||
       post.author.toLowerCase().includes(searchTerm.toLowerCase());
-    const matchesCategory = selectedCategory === "all" || post.category === selectedCategory;
+    const matchesCategory = selectedCategory === "all" || selectedCategory === t('blogPage.allCategories') || post.category === selectedCategory;
     return matchesSearch && matchesCategory;
   });
 
@@ -111,13 +128,12 @@ export default function BlogPage() {
 
   return (
     <div className="min-h-screen flex flex-col">
-      <Navigation />
 
       <div className="bg-green-700 text-white py-12 px-4">
         <div className="max-w-7xl mx-auto">
-          <h1 className="text-4xl md:text-5xl font-bold mb-4">Agricultural Blog</h1>
+          <h1 className="text-4xl md:text-5xl font-bold mb-4">{t('blogPage.title')}</h1>
           <p className="text-xl text-green-100">
-            Latest insights, tips, and best practices for modern farming
+            {t('blogPage.subtitle')}
           </p>
         </div>
       </div>
@@ -134,8 +150,8 @@ export default function BlogPage() {
               />
               <div className="p-8 flex flex-col justify-center">
                 <div className="flex items-center space-x-2 mb-3">
-                  <Badge className="bg-green-600">Featured</Badge>
-                  <Badge variant="outline">{featuredPost.category}</Badge>
+                  <Badge className="bg-green-600">{t('blogPage.featuredArticle')}</Badge>
+                  <Badge variant="outline">{translateCategory(featuredPost.category)}</Badge>
                 </div>
                 <h2 className="text-3xl font-bold text-gray-900 mb-3">
                   {featuredPost.title}
@@ -152,7 +168,7 @@ export default function BlogPage() {
                   </div>
                 </div>
                 <Button className="bg-green-600 hover:bg-green-700 w-fit">
-                  Read More <ArrowRight className="w-4 h-4 ml-2" />
+                  {t('blogPage.readMore')} <ArrowRight className="w-4 h-4 ml-2" />
                 </Button>
               </div>
             </div>
@@ -174,7 +190,7 @@ export default function BlogPage() {
               </div>
               <div>
                 <label className="block text-sm font-medium text-gray-700 mb-2">
-                  Filter by Category
+                  {t('blogPage.filterByCategory')}
                 </label>
                 <select
                   value={selectedCategory}
@@ -182,8 +198,8 @@ export default function BlogPage() {
                   className="w-full h-10 px-3 rounded-md border border-gray-300 bg-white"
                 >
                   {categories.map((cat) => (
-                    <option key={cat} value={cat === "All Categories" ? "all" : cat}>
-                      {cat}
+                    <option key={cat} value={cat === t('blogPage.allCategories') ? "all" : cat}>
+                      {cat === t('blogPage.allCategories') ? cat : translateCategory(cat)}
                     </option>
                   ))}
                 </select>
@@ -213,7 +229,7 @@ export default function BlogPage() {
                     className="w-full h-48 object-cover group-hover:scale-105 transition-transform duration-300"
                   />
                   <Badge className="absolute top-3 left-3 bg-green-600">
-                    {post.category}
+                    {translateCategory(post.category)}
                   </Badge>
                 </div>
                 <CardHeader>
@@ -238,7 +254,7 @@ export default function BlogPage() {
                       <span>{new Date(post.date).toLocaleDateString()}</span>
                     </div>
                     <Button size="sm" variant="ghost" className="text-green-600 hover:text-green-700">
-                      Read More <ArrowRight className="w-4 h-4 ml-1" />
+                      {t('blogPage.readMore')} <ArrowRight className="w-4 h-4 ml-1" />
                     </Button>
                   </div>
                 </CardContent>

@@ -28,11 +28,11 @@ export default function Footer() {
                   NGO Directory
                 </Link>
               </li>
-              <li>
+              {/* <li>
                 <Link href="/blog" className="text-green-200 hover:text-white transition-colors">
                   Blog
                 </Link>
-              </li>
+              </li> */}
               <li>
                 <Link href="/contact" className="text-green-200 hover:text-white transition-colors">
                   Contact Us

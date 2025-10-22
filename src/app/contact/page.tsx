@@ -1,7 +1,6 @@
 "use client";
 
 import { useState } from "react";
-import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
@@ -12,8 +11,10 @@ import { MapPin, Phone, Mail, Clock, Send, MessageCircle } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 import { Toaster } from "@/components/ui/sonner";
 import { toast } from "sonner";
+import { useTranslation } from "@/context/TranslationContext";
 
 export default function ContactPage() {
+  const { t } = useTranslation();
   const [formData, setFormData] = useState({
     name: "",
     email: "",
@@ -23,13 +24,13 @@ export default function ContactPage() {
   });
   const [chatOpen, setChatOpen] = useState(false);
   const [chatMessages, setChatMessages] = useState([
-    { type: "bot", message: "Hello! I'm your ANNADATAA assistant. How can I help you today?" }
+    { type: "bot", message: t('chatbot.greeting') }
   ]);
   const [chatInput, setChatInput] = useState("");
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    toast.success("Message sent successfully! We'll get back to you soon.");
+    toast.success(t('contactPage.successMessage'));
     setFormData({
       name: "",
       email: "",
@@ -52,13 +53,12 @@ export default function ContactPage() {
 
   return (
     <div className="min-h-screen flex flex-col">
-      <Navigation />
 
       <div className="bg-green-700 text-white py-12 px-4">
         <div className="max-w-7xl mx-auto">
-          <h1 className="text-4xl md:text-5xl font-bold mb-4">Contact Us</h1>
+          <h1 className="text-4xl md:text-5xl font-bold mb-4">{t('contactPage.title')}</h1>
           <p className="text-xl text-green-100">
-            Get in touch with our team for any assistance or queries
+            {t('contactPage.subtitle')}
           </p>
         </div>
       </div>
@@ -70,75 +70,75 @@ export default function ContactPage() {
             <div className="lg:col-span-2">
               <Card>
                 <CardHeader>
-                  <CardTitle className="text-2xl">Send us a Message</CardTitle>
+                  <CardTitle className="text-2xl">{t('contactPage.formTitle')}</CardTitle>
                   <CardDescription>
-                    Fill out the form below and we'll get back to you as soon as possible
+                    {t('contactPage.formSubtitle')}
                   </CardDescription>
                 </CardHeader>
                 <CardContent>
                   <form onSubmit={handleSubmit} className="space-y-4">
                     <div className="grid md:grid-cols-2 gap-4">
                       <div>
-                        <Label htmlFor="name">Full Name *</Label>
+                        <Label htmlFor="name">{t('contactPage.form.name')} *</Label>
                         <Input
                           id="name"
                           required
                           value={formData.name}
                           onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-                          placeholder="Enter your name"
+                          placeholder={t('contactPage.form.namePlaceholder')}
                         />
                       </div>
                       <div>
-                        <Label htmlFor="email">Email Address *</Label>
+                        <Label htmlFor="email">{t('contactPage.form.email')} *</Label>
                         <Input
                           id="email"
                           type="email"
                           required
                           value={formData.email}
                           onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-                          placeholder="your@email.com"
+                          placeholder={t('contactPage.form.emailPlaceholder')}
                         />
                       </div>
                     </div>
 
                     <div className="grid md:grid-cols-2 gap-4">
                       <div>
-                        <Label htmlFor="phone">Phone Number *</Label>
+                        <Label htmlFor="phone">{t('contactPage.form.phone')} *</Label>
                         <Input
                           id="phone"
                           required
                           value={formData.phone}
                           onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
-                          placeholder="+91 XXXXX XXXXX"
+                          placeholder={t('contactPage.form.phonePlaceholder')}
                         />
                       </div>
                       <div>
-                        <Label htmlFor="subject">Subject *</Label>
+                        <Label htmlFor="subject">{t('contactPage.form.subject')} *</Label>
                         <Input
                           id="subject"
                           required
                           value={formData.subject}
                           onChange={(e) => setFormData({ ...formData, subject: e.target.value })}
-                          placeholder="What is this about?"
+                          placeholder={t('contactPage.form.subjectPlaceholder')}
                         />
                       </div>
                     </div>
 
                     <div>
-                      <Label htmlFor="message">Message *</Label>
+                      <Label htmlFor="message">{t('contactPage.form.message')} *</Label>
                       <Textarea
                         id="message"
                         required
                         rows={6}
                         value={formData.message}
                         onChange={(e) => setFormData({ ...formData, message: e.target.value })}
-                        placeholder="Tell us how we can help you..."
+                        placeholder={t('contactPage.form.messagePlaceholder')}
                       />
                     </div>
 
                     <Button type="submit" className="bg-green-600 hover:bg-green-700 w-full md:w-auto">
                       <Send className="w-4 h-4 mr-2" />
-                      Send Message
+                      {t('contactPage.form.submit')}
                     </Button>
                   </form>
                 </CardContent>
@@ -149,7 +149,7 @@ export default function ContactPage() {
             <div className="space-y-6">
               <Card>
                 <CardHeader>
-                  <CardTitle>Contact Information</CardTitle>
+                  <CardTitle>{t('contactPage.contactInfo.title')}</CardTitle>
                 </CardHeader>
                 <CardContent className="space-y-4">
                   <div className="flex items-start space-x-3">
@@ -157,7 +157,7 @@ export default function ContactPage() {
                       <MapPin className="w-5 h-5 text-green-600" />
                     </div>
                     <div>
-                      <h4 className="font-semibold text-gray-900">Address</h4>
+                      <h4 className="font-semibold text-gray-900">{t('contactPage.contactInfo.address')}</h4>
                       <p className="text-gray-600 text-sm">
                         123 Agriculture Street<br />
                         New Delhi, 110001<br />
@@ -171,7 +171,7 @@ export default function ContactPage() {
                       <Phone className="w-5 h-5 text-green-600" />
                     </div>
                     <div>
-                      <h4 className="font-semibold text-gray-900">Phone</h4>
+                      <h4 className="font-semibold text-gray-900">{t('contactPage.contactInfo.phone')}</h4>
                       <p className="text-gray-600 text-sm">
                         Toll Free: 1800-XXX-XXXX<br />
                         Mobile: +91 98765 43210
@@ -184,7 +184,7 @@ export default function ContactPage() {
                       <Mail className="w-5 h-5 text-green-600" />
                     </div>
                     <div>
-                      <h4 className="font-semibold text-gray-900">Email</h4>
+                      <h4 className="font-semibold text-gray-900">{t('contactPage.contactInfo.email')}</h4>
                       <p className="text-gray-600 text-sm">
                         info@annadataa.in<br />
                         support@annadataa.in
@@ -197,7 +197,7 @@ export default function ContactPage() {
                       <Clock className="w-5 h-5 text-green-600" />
                     </div>
                     <div>
-                      <h4 className="font-semibold text-gray-900">Business Hours</h4>
+                      <h4 className="font-semibold text-gray-900">{t('contactPage.contactInfo.hours')}</h4>
                       <p className="text-gray-600 text-sm">
                         Monday - Friday: 9:00 AM - 6:00 PM<br />
                         Saturday: 9:00 AM - 2:00 PM<br />
@@ -210,15 +210,15 @@ export default function ContactPage() {
 
               <Card>
                 <CardHeader>
-                  <CardTitle>Quick Support</CardTitle>
+                  <CardTitle>{t('contactPage.quickSupport')}</CardTitle>
                   <CardDescription>
-                    Need immediate assistance? Use our helpline
+                    {t('contactPage.quickSupportDesc')}
                   </CardDescription>
                 </CardHeader>
                 <CardContent>
                   <Button className="w-full bg-green-600 hover:bg-green-700">
                     <Phone className="w-4 h-4 mr-2" />
-                    Call Helpline
+                    {t('contactPage.callHelpline')}
                   </Button>
                 </CardContent>
               </Card>
@@ -228,13 +228,13 @@ export default function ContactPage() {
           {/* Map Section */}
           <Card className="mt-8">
             <CardHeader>
-              <CardTitle>Our Location</CardTitle>
+              <CardTitle>{t('contactPage.ourLocation')}</CardTitle>
             </CardHeader>
             <CardContent>
               <div className="w-full h-[400px] bg-gray-200 rounded-lg flex items-center justify-center">
                 <div className="text-center">
                   <MapPin className="w-12 h-12 text-gray-400 mx-auto mb-2" />
-                  <p className="text-gray-600">Map View</p>
+                  <p className="text-gray-600">{t('contactPage.mapView')}</p>
                   <p className="text-sm text-gray-500">123 Agriculture Street, New Delhi</p>
                 </div>
               </div>

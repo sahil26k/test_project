@@ -2,7 +2,6 @@
 
 import { useState } from "react";
 import Link from "next/link";
-import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
@@ -11,135 +10,94 @@ import { Badge } from "@/components/ui/badge";
 import { Search, MapPin, Phone, Mail, Globe, Users } from "lucide-react";
 import { toast } from "sonner";
 import { Toaster } from "@/components/ui/sonner";
+import { useTranslation } from "@/context/TranslationContext";
+import { getTranslation, type LanguageCode } from "@/lib/translations";
 
-const ngos = [
+// Static contact info and location data (not translated - proper nouns and contact details)
+const ngoContactData = [
   {
-    id: 1,
-    name: "Farmer Support Foundation",
     category: "Training & Support",
-    state: "Maharashtra",
-    city: "Mumbai",
-    description: "Providing comprehensive training programs and financial support to small-scale farmers across Maharashtra.",
-    services: ["Training Programs", "Financial Aid", "Equipment Support"],
+    state: "Multiple States",
+    city: "New Delhi",
     contact: {
-      phone: "+91 22 1234 5678",
-      email: "contact@farmersupport.org",
-      website: "www.farmersupport.org",
+      phone: "+91 11 2653 7456",
+      email: "pradan@pradan.net",
+      website: "www.pradan.net",
     },
-    established: "2010",
+    established: "1983",
   },
   {
-    id: 2,
-    name: "Green Agriculture Initiative",
     category: "Organic Farming",
-    state: "Punjab",
-    city: "Ludhiana",
-    description: "Promoting organic farming practices and sustainable agriculture methods in Punjab region.",
-    services: ["Organic Certification", "Seeds Supply", "Market Linkage"],
+    state: "Maharashtra",
+    city: "Pune",
     contact: {
-      phone: "+91 161 2345 6789",
-      email: "info@greenagri.org",
-      website: "www.greenagri.org",
+      phone: "+91 20 2528 7803",
+      email: "baif@baif.org.in",
+      website: "www.baif.org.in",
     },
-    established: "2015",
+    established: "1967",
   },
   {
-    id: 3,
-    name: "Rural Development Society",
     category: "Community Development",
-    state: "Uttar Pradesh",
-    city: "Lucknow",
-    description: "Working towards holistic rural development with focus on agriculture, education, and healthcare.",
-    services: ["Community Training", "Infrastructure", "Healthcare"],
+    state: "Karnataka",
+    city: "Bangalore",
     contact: {
-      phone: "+91 522 3456 7890",
-      email: "support@ruraldevelopment.org",
-      website: "www.ruraldevelopment.org",
+      phone: "+91 80 2666 5110",
+      email: "myrada@myrada.org",
+      website: "www.myrada.org",
+    },
+    established: "1968",
+  },
+  {
+    category: "Women Empowerment",
+    state: "Gujarat",
+    city: "Ahmedabad",
+    contact: {
+      phone: "+91 79 2550 6444",
+      email: "mail@sewa.org",
+      website: "www.sewa.org",
+    },
+    established: "1972",
+  },
+  {
+    category: "Technology & Innovation",
+    state: "Multiple States",
+    city: "New Delhi",
+    contact: {
+      phone: "+91 11 4050 4747",
+      email: "info@digitalgreen.org",
+      website: "www.digitalgreen.org",
     },
     established: "2008",
   },
   {
-    id: 4,
-    name: "Kisan Welfare Trust",
-    category: "Financial Assistance",
-    state: "Karnataka",
-    city: "Bangalore",
-    description: "Providing micro-loans, insurance support, and financial literacy programs for farmers.",
-    services: ["Micro Finance", "Insurance", "Financial Literacy"],
-    contact: {
-      phone: "+91 80 4567 8901",
-      email: "help@kisanwelfare.org",
-      website: "www.kisanwelfare.org",
-    },
-    established: "2012",
-  },
-  {
-    id: 5,
-    name: "Agricultural Technology Center",
-    category: "Technology & Innovation",
-    state: "Tamil Nadu",
-    city: "Chennai",
-    description: "Introducing modern agricultural technologies and innovative farming techniques to farmers.",
-    services: ["Technology Training", "Equipment Demo", "Research Support"],
-    contact: {
-      phone: "+91 44 5678 9012",
-      email: "contact@agritech.org",
-      website: "www.agritech.org",
-    },
-    established: "2016",
-  },
-  {
-    id: 6,
-    name: "Water Conservation Alliance",
     category: "Water Management",
-    state: "Rajasthan",
-    city: "Jaipur",
-    description: "Focusing on water conservation, rainwater harvesting, and efficient irrigation systems.",
-    services: ["Drip Irrigation", "Rainwater Harvesting", "Water Testing"],
-    contact: {
-      phone: "+91 141 6789 0123",
-      email: "info@wateralliance.org",
-      website: "www.wateralliance.org",
-    },
-    established: "2011",
-  },
-  {
-    id: 7,
-    name: "Crop Insurance Network",
-    category: "Insurance Services",
     state: "Gujarat",
     city: "Ahmedabad",
-    description: "Facilitating crop insurance and providing support during natural calamities and crop failures.",
-    services: ["Crop Insurance", "Claim Support", "Risk Assessment"],
     contact: {
-      phone: "+91 79 7890 1234",
-      email: "support@cropinsurance.org",
-      website: "www.cropinsurance.org",
+      phone: "+91 281 238 2821",
+      email: "akrspi@akrsp.org",
+      website: "www.akrsp.org.in",
     },
-    established: "2014",
-  },
-  {
-    id: 8,
-    name: "Women Farmers Association",
-    category: "Women Empowerment",
-    state: "West Bengal",
-    city: "Kolkata",
-    description: "Empowering women farmers through skill development, self-help groups, and market access.",
-    services: ["Skill Training", "SHG Formation", "Market Access"],
-    contact: {
-      phone: "+91 33 8901 2345",
-      email: "contact@womenfarmers.org",
-      website: "www.womenfarmers.org",
-    },
-    established: "2013",
+    established: "1984",
   },
 ];
 
 export default function NGOsPage() {
+  const { t, language } = useTranslation();
   const [searchTerm, setSearchTerm] = useState("");
   const [selectedCategory, setSelectedCategory] = useState("all");
 
-  const categories = ["All Categories", ...Array.from(new Set(ngos.map(ngo => ngo.category)))];
+  // Get translated NGO data
+  const ngosDataRaw = getTranslation(language as LanguageCode, 'ngosPage.ngos');
+  const ngosData = Array.isArray(ngosDataRaw) ? ngosDataRaw : [];
+  const ngos = ngosData.map((ngo: any, index: number) => ({
+    id: index + 1,
+    ...ngo,
+    ...ngoContactData[index]
+  }));
+
+  const categories = [t('ngosPage.allCategories'), ...Array.from(new Set(ngos.map(ngo => ngo.category || ngo.focus)))];
 
   const filteredNGOs = ngos.filter((ngo) => {
     const matchesSearch = 
@@ -147,25 +105,24 @@ export default function NGOsPage() {
       ngo.city.toLowerCase().includes(searchTerm.toLowerCase()) ||
       ngo.state.toLowerCase().includes(searchTerm.toLowerCase()) ||
       ngo.description.toLowerCase().includes(searchTerm.toLowerCase());
-    const matchesCategory = selectedCategory === "all" || ngo.category === selectedCategory;
+    const matchesCategory = selectedCategory === "all" || selectedCategory === t('ngosPage.allCategories') || ngo.category === selectedCategory || ngo.focus === selectedCategory;
     return matchesSearch && matchesCategory;
   });
 
   const handleContactClick = (ngoName: string, phone: string) => {
-    toast.success(`Contacting ${ngoName}`, {
-      description: `Please call ${phone} or visit the Contact Us page for more options.`
+    toast.success(`${t('ngosPage.contactNGO')}: ${ngoName}`, {
+      description: `${t('ngosPage.phone')}: ${phone}`
     });
   };
 
   return (
     <div className="min-h-screen flex flex-col">
-      <Navigation />
 
       <div className="bg-green-700 text-white py-12 px-4">
         <div className="max-w-7xl mx-auto">
-          <h1 className="text-4xl md:text-5xl font-bold mb-4">NGO Directory</h1>
+          <h1 className="text-4xl md:text-5xl font-bold mb-4">{t('ngosPage.title')}</h1>
           <p className="text-xl text-green-100">
-            Connect with agricultural NGOs for support, training, and resources
+            {t('ngosPage.subtitle')}
           </p>
         </div>
       </div>
@@ -178,17 +135,17 @@ export default function NGOsPage() {
               <div>
                 <label className="block text-sm font-medium text-gray-700 mb-2">
                   <Search className="inline w-4 h-4 mr-1" />
-                  Search NGOs
+                  {t('ngosPage.searchPlaceholder')}
                 </label>
                 <Input
-                  placeholder="Search by name, location, or services..."
+                  placeholder={t('ngosPage.searchPlaceholder')}
                   value={searchTerm}
                   onChange={(e) => setSearchTerm(e.target.value)}
                 />
               </div>
               <div>
                 <label className="block text-sm font-medium text-gray-700 mb-2">
-                  Filter by Category
+                  {t('ngosPage.filterByCategory')}
                 </label>
                 <select
                   value={selectedCategory}
@@ -229,40 +186,46 @@ export default function NGOsPage() {
                       <Users className="w-6 h-6 text-green-600" />
                     </div>
                   </div>
-                  <Badge className="bg-green-600 w-fit mt-2">{ngo.category}</Badge>
+                  <Badge className="bg-green-600 w-fit mt-2">{ngo.category || ngo.focus}</Badge>
                 </CardHeader>
                 <CardContent className="space-y-4">
                   <p className="text-gray-600 text-sm">{ngo.description}</p>
 
                   <div>
-                    <h4 className="font-semibold text-gray-900 text-sm mb-2">Services Offered:</h4>
+                    <h4 className="font-semibold text-gray-900 text-sm mb-2">{t('ngosPage.services')}:</h4>
                     <div className="flex flex-wrap gap-1">
-                      {ngo.services.map((service, idx) => (
-                        <Badge key={idx} variant="outline" className="text-xs">
-                          {service}
+                      {ngo.services && Array.isArray(ngo.services) ? (
+                        ngo.services.map((service: string, idx: number) => (
+                          <Badge key={idx} variant="outline" className="text-xs">
+                            {service}
+                          </Badge>
+                        ))
+                      ) : (
+                        <Badge variant="outline" className="text-xs">
+                          {ngo.focus || ngo.category || 'General Support'}
                         </Badge>
-                      ))}
+                      )}
                     </div>
                   </div>
 
                   <div className="border-t pt-4 space-y-2">
                     <div className="flex items-center space-x-2 text-sm">
                       <Phone className="w-4 h-4 text-gray-500" />
-                      <span className="text-gray-700">{ngo.contact.phone}</span>
+                      <span className="text-gray-700">{ngo.contact?.phone || ngo.phone}</span>
                     </div>
                     <div className="flex items-center space-x-2 text-sm">
                       <Mail className="w-4 h-4 text-gray-500" />
-                      <span className="text-gray-700 break-all">{ngo.contact.email}</span>
+                      <span className="text-gray-700 break-all">{ngo.contact?.email || ngo.email}</span>
                     </div>
                     <div className="flex items-center space-x-2 text-sm">
                       <Globe className="w-4 h-4 text-gray-500" />
                       <a 
-                        href={`https://${ngo.contact.website}`}
+                        href={`https://${ngo.contact?.website || ngo.website}`}
                         target="_blank"
                         rel="noopener noreferrer"
                         className="text-blue-600 hover:text-blue-800 hover:underline transition-colors"
                       >
-                        {ngo.contact.website}
+                        {ngo.contact?.website || ngo.website}
                       </a>
                     </div>
                   </div>
@@ -272,9 +235,9 @@ export default function NGOsPage() {
                     <Button 
                       size="sm" 
                       className="bg-green-600 hover:bg-green-700"
-                      onClick={() => handleContactClick(ngo.name, ngo.contact.phone)}
+                      onClick={() => handleContactClick(ngo.name, ngo.contact?.phone || ngo.phone)}
                     >
-                      Contact NGO
+                      {t('ngosPage.contactNGO')}
                     </Button>
                   </div>
                 </CardContent>
