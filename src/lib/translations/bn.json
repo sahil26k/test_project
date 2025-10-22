@@ -283,7 +283,13 @@
     "subject": "বিষয়",
     "message": "আপনার বার্তা",
     "sendMessage": "বার্তা পাঠান",
-    "contactInfo": "যোগাযোগের তথ্য",
+    "contactInfo": {
+      "title": "যোগাযোগের তথ্য",
+      "phone": "ফোন",
+      "email": "ইমেইল",
+      "address": "ঠিকানা",
+      "hours": "কাজের সময়"
+    },
     "address": "ঠিকানা",
     "addressText": "১২৩ কৃষি রোড, খামার জেলা, নতুন দিল্লি - ১১০০০১, ভারত",
     "phoneText": "+৯১ ১৮০০-XXX-XXXX",

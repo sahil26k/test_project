@@ -283,7 +283,13 @@
     "subject": "विषय",
     "message": "आपका संदेश",
     "sendMessage": "संदेश भेजें",
-    "contactInfo": "संपर्क जानकारी",
+    "contactInfo": {
+      "title": "संपर्क जानकारी",
+      "phone": "फोन",
+      "email": "ईमेल",
+      "address": "पता",
+      "hours": "कार्य समय"
+    },
     "address": "पता",
     "addressText": "123 कृषि रोड, फार्म डिस्ट्रिक्ट, नई दिल्ली - 110001, भारत",
     "phoneText": "+91 1800-XXX-XXXX",

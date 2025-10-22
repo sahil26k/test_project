@@ -283,7 +283,13 @@
     "subject": "विषय",
     "message": "तुमचा संदेश",
     "sendMessage": "संदेश पाठवा",
-    "contactInfo": "संपर्क माहिती",
+    "contactInfo": {
+      "title": "संपर्क माहिती",
+      "phone": "फोन",
+      "email": "ईमेल",
+      "address": "पत्ता",
+      "hours": "कामाचे तास"
+    },
     "address": "पत्ता",
     "addressText": "123 कृषी रोड, शेत जिल्हा, नवी दिल्ली - 110001, भारत",
     "phoneText": "+91 1800-XXX-XXXX",

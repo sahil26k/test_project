@@ -78,66 +78,66 @@ export default function ContactPage() {
                   <form onSubmit={handleSubmit} className="space-y-4">
                     <div className="grid md:grid-cols-2 gap-4">
                       <div>
-                        <Label htmlFor="name">{t('contactPage.form.name')} *</Label>
+                        <Label htmlFor="name">{t('contactPage.fullName')} *</Label>
                         <Input
                           id="name"
                           required
                           value={formData.name}
                           onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-                          placeholder={t('contactPage.form.namePlaceholder')}
+                          placeholder={t('contactPage.namePlaceholder')}
                         />
                       </div>
                       <div>
-                        <Label htmlFor="email">{t('contactPage.form.email')} *</Label>
+                        <Label htmlFor="email">{t('contactPage.email')} *</Label>
                         <Input
                           id="email"
                           type="email"
                           required
                           value={formData.email}
                           onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-                          placeholder={t('contactPage.form.emailPlaceholder')}
+                          placeholder={t('contactPage.emailPlaceholder')}
                         />
                       </div>
                     </div>
 
                     <div className="grid md:grid-cols-2 gap-4">
                       <div>
-                        <Label htmlFor="phone">{t('contactPage.form.phone')} *</Label>
+                        <Label htmlFor="phone">{t('contactPage.phone')} *</Label>
                         <Input
                           id="phone"
                           required
                           value={formData.phone}
                           onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
-                          placeholder={t('contactPage.form.phonePlaceholder')}
+                          placeholder={t('contactPage.phonePlaceholder')}
                         />
                       </div>
                       <div>
-                        <Label htmlFor="subject">{t('contactPage.form.subject')} *</Label>
+                        <Label htmlFor="subject">{t('contactPage.subject')} *</Label>
                         <Input
                           id="subject"
                           required
                           value={formData.subject}
                           onChange={(e) => setFormData({ ...formData, subject: e.target.value })}
-                          placeholder={t('contactPage.form.subjectPlaceholder')}
+                          placeholder={t('contactPage.subjectPlaceholder')}
                         />
                       </div>
                     </div>
 
                     <div>
-                      <Label htmlFor="message">{t('contactPage.form.message')} *</Label>
+                      <Label htmlFor="message">{t('contactPage.message')} *</Label>
                       <Textarea
                         id="message"
                         required
                         rows={6}
                         value={formData.message}
                         onChange={(e) => setFormData({ ...formData, message: e.target.value })}
-                        placeholder={t('contactPage.form.messagePlaceholder')}
+                        placeholder={t('contactPage.messagePlaceholder')}
                       />
                     </div>
 
                     <Button type="submit" className="bg-green-600 hover:bg-green-700 w-full md:w-auto">
                       <Send className="w-4 h-4 mr-2" />
-                      {t('contactPage.form.submit')}
+                      {t('contactPage.sendMessage')}
                     </Button>
                   </form>
                 </CardContent>

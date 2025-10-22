@@ -283,7 +283,13 @@
     "subject": "વિષય",
     "message": "તમારો સંદેશ",
     "sendMessage": "સંદેશ મોકલો",
-    "contactInfo": "સંપર્ક માહિતી",
+    "contactInfo": {
+      "title": "સંપર્ક માહિતી",
+      "phone": "ફોન",
+      "email": "ઇમેઇલ",
+      "address": "સરનામું",
+      "hours": "કામના કલાકો"
+    },
     "address": "સરનામું",
     "addressText": "123 કૃષિ રોડ, ફાર્મ જિલ્લો, નવી દિલ્હી - 110001, ભારત",
     "phoneText": "+91 1800-XXX-XXXX",

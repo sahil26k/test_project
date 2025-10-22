@@ -283,7 +283,13 @@
     "subject": "ਵਿਸ਼ਾ",
     "message": "ਤੁਹਾਡਾ ਸੁਨੇਹਾ",
     "sendMessage": "ਸੁਨੇਹਾ ਭੇਜੋ",
-    "contactInfo": "ਸੰਪਰਕ ਜਾਣਕਾਰੀ",
+    "contactInfo": {
+      "title": "ਸੰਪਰਕ ਜਾਣਕਾਰੀ",
+      "phone": "ਫੋਨ",
+      "email": "ਈਮੇਲ",
+      "address": "ਪਤਾ",
+      "hours": "ਕੰਮ ਦੇ ਘੰਟੇ"
+    },
     "address": "ਪਤਾ",
     "addressText": "123 ਖੇਤੀਬਾੜੀ ਰੋਡ, ਫਾਰਮ ਜ਼ਿਲ੍ਹਾ, ਨਵੀਂ ਦਿੱਲੀ - 110001, ਭਾਰਤ",
     "phoneText": "+91 1800-XXX-XXXX",

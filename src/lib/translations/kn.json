@@ -283,7 +283,13 @@
     "subject": "ವಿಷಯ",
     "message": "ನಿಮ್ಮ ಸಂದೇಶ",
     "sendMessage": "ಸಂದೇಶ ಕಳುಹಿಸಿ",
-    "contactInfo": "ಸಂಪರ್ಕ ಮಾಹಿತಿ",
+    "contactInfo": {
+      "title": "ಸಂಪರ್ಕ ಮಾಹಿತಿ",
+      "phone": "ಫೋನ್",
+      "email": "ಇಮೇಲ್",
+      "address": "ವಿಳಾಸ",
+      "hours": "ಕೆಲಸದ ಸಮಯ"
+    },
     "address": "ವಿಳಾಸ",
     "addressText": "123 ಕೃಷಿ ರಸ್ತೆ, ಫಾರ್ಮ್ ಜಿಲ್ಲೆ, ನವ ದೆಹಲಿ - 110001, ಭಾರತ",
     "phoneText": "+91 1800-XXX-XXXX",
